@@ -8,16 +8,18 @@ set -eo pipefail
 
 # Ensure we are using the latest pip and wheel packages.
 
-pip install -U pip setuptools wheel
+#pip install -U pip setuptools wheel
 
 # Install mod_wsgi for use in optional webdav support.
 
-pip install 'mod_wsgi==4.6.2'
+pip3 install 'mod_wsgi==4.6.2'
 
 # Install base packages needed for running Jupyter Notebooks. 
 
-pip install -r /tmp/src/requirements.txt
-pip uninstall -y uuid
+pip3 install 'Cython' 
+pip3 install 'numpy>=1.11.0' 'scipy>=0.17.0'
+pip3 install -r /tmp/src/requirements.txt
+pip3 uninstall -y uuid
 
 # Activate JupyterHub extension for JupyterLab.
 
@@ -83,7 +85,7 @@ HOME=/opt/app-root
 
 curl -s -o /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py
 
-/usr/bin/python /tmp/get-pip.py --user
+/usr/bin/python3 /tmp/get-pip.py --user
 
 rm -f /tmp/get-pip.py
 
@@ -93,13 +95,13 @@ rm -f /tmp/get-pip.py
 
 # Create a virtual environment for Python 2.7.
 
-/opt/app-root/.local/bin/virtualenv /opt/app-root/supervisor
+virtualenv /opt/app-root/supervisor
 
 # Install supervisor into the virtual environment.
 
 source /opt/app-root/supervisor/bin/activate
 
-pip install --no-cache-dir 'supervisor<3.4.0'
+pip install --no-cache-dir 'supervisor'
 
 # Link supervisorctl into /opt/app-root/bin so in PATH.
 
