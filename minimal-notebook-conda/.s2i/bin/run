@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec /opt/app-root/src/start-singleuser.sh "$@"

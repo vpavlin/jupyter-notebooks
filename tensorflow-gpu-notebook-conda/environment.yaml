@@ -1,0 +1,14 @@
+name: tensorflow
+channels:
+- https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
+dependencies:
+- python
+- tensorflow-gpu
+- pip
+- Cython
+- numpy
+- scipy
+- pip:
+  # works for regular pip packages
+  - -r requirements.txt
+  # and for wheels

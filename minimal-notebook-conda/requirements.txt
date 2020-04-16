@@ -1,0 +1,12 @@
+notebook==5.7.6
+jupyterhub==0.9.4
+jupyterlab==0.35.4
+#jupyter_kernel_gateway==2.0.*
+jupyter_kernel_gateway==2.2.0
+dask==1.1.1
+distributed==1.26.0
+pandas==0.23.0
+pandas-profiling==2.1.0
+mlflow==0.5.0
+tornado<6.0.0
+rise==5.5.1

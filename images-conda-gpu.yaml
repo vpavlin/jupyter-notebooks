@@ -1,0 +1,52 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    build: s2i-tensorflow-gpu-notebook-conda
+  name: s2i-tensorflow-gpu-notebook-conda
+spec:
+  lookupPolicy:
+    local: true
+status:
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: s2i-tensorflow-gpu-notebook-conda
+  name: s2i-tensorflow-gpu-notebook-conda
+spec:
+  failedBuildsHistoryLimit: 5
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 's2i-tensorflow-gpu-notebook-conda:latest'
+  postCommit: {}
+  resources:
+    requests:
+      memory: 6Gi
+  runPolicy: Parallel
+  source:
+    contextDir: tensorflow-gpu-notebook-conda
+    git:
+      ref: ppc64le
+      uri: 'https://github.com/vpavlin/jupyter-notebooks'
+    type: Git
+  strategy:
+    sourceStrategy:
+      forcePull: true
+      from:
+        kind: ImageStreamTag
+        name: 'python-36-centos7:latest'
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange:
+        from:
+          kind: "ImageStreamTag"
+          name: 'python-36-centos7:latest'
+status:
+  
