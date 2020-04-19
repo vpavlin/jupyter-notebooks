@@ -3,11 +3,8 @@ channels:
 - https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
 dependencies:
 - python
-- tensorflow-gpu
-- cudatoolkit=10.1.105
 - pip
 - Cython
 - numpy
 - scipy
-- pip:
-  - -r requirements.txt
+  

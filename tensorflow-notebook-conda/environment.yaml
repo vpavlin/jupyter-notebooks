@@ -1,14 +1,12 @@
-name: tensorflow
+name: default
 channels:
 - https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
 dependencies:
 - python
 - tensorflow
 - pip
+- Cython
+- numpy
+- scipy
 - pip:
-  # works for regular pip packages
-  - Cython
-  - numpy
-  - scipy
   - -r requirements.txt
-  # and for wheels

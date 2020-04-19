@@ -7,7 +7,7 @@ cp /tmp/src/start* /opt/app-root/bin/
 export IBM_POWERAI_LICENSE_ACCEPT=yes
 conda env update --file /tmp/src/environment.yaml
 
-python -m ipykernel install --user --name tensorflow-gpu --display-name "Tensorflow GPU"
+python -m ipykernel install --user --name tensorflow --display-name "Tensorflow"
 
 fix-permissions /opt/app-root
 

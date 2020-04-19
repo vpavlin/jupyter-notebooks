@@ -1,3 +1,0 @@
-THOTH_ADVISE=0
-THOTH_PROVENANCE_CHECK=0
-ENV=/opt/app-root/bin/activate

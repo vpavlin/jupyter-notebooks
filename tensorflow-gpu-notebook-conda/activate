@@ -1,4 +1,0 @@
-#!/usr/bin/bash
-
-source /opt/app-root/miniconda3/etc/profile.d/conda.sh
-conda activate tensorflow
