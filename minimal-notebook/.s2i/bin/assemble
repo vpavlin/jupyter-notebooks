@@ -79,66 +79,6 @@ PATH=/usr/bin:$PATH
 
 HOME=/opt/app-root
 
-# Install pip for Python 2.7.
-
-curl -s -o /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py
-
-/usr/bin/python /tmp/get-pip.py --user
-
-rm -f /tmp/get-pip.py
-
-# Install virtualenv for Python 2.7.
-
-/opt/app-root/.local/bin/pip install --no-cache-dir --user virtualenv
-
-# Create a virtual environment for Python 2.7.
-
-/opt/app-root/.local/bin/virtualenv /opt/app-root/supervisor
-
-# Install supervisor into the virtual environment.
-
-source /opt/app-root/supervisor/bin/activate
-
-pip install --no-cache-dir 'supervisor<3.4.0'
-
-# Link supervisorctl into /opt/app-root/bin so in PATH.
-
-mkdir -p /opt/app-root/bin
-
-ln -s /opt/app-root/supervisor/bin/supervisorctl /opt/app-root/bin/supervisorctl
-
-# Remove the per user Python area and cache as shouldn't need them now.
-
-rm -rf /opt/app-root/.local /opt/app-root/.cache
-
-# Generate default supervisord.conf file.
-
-echo_supervisord_conf | \
-    sed -e 's%^logfile=/tmp/supervisord.log%logfile=/dev/fd/1%' \
-        -e 's%^logfile_maxbytes=50MB%logfile_maxbytes=0%' > \
-        /opt/app-root/supervisor/supervisord.conf
-
-cat >> /opt/app-root/supervisor/supervisord.conf << EOF
-
-[program:notebook]
-command=start-notebook.sh
-stdout_logfile=/proc/1/fd/1
-stdout_logfile_maxbytes=0
-redirect_stderr=true
-autostart=true
-autorestart=true
-exitcodes=0
-
-[program:webdav]
-command=start-webdav.sh
-stdout_logfile=/proc/1/fd/1
-stdout_logfile_maxbytes=0
-redirect_stderr=true
-autostart=%(ENV_JUPYTER_ENABLE_WEBDAV)s
-
-[include]
-files = /opt/app-root/src/.supervisord/*.conf
-EOF
 
 [ -z "${PUBLISH_EXTENSION_VERSION}" ] && PUBLISH_EXTENSION_VERSION=7cbf34e494fd9a0a79e9cd9a8c1d48a6775b9f49
 
